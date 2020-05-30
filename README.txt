@@ -20,6 +20,3 @@ TEMPLATES:
 "easy_clibs_template" has all the needed include files, and much more! Check out "easy_clibs_template/doc.txt" for more details
 
 
-NOTES:
-There are a few WIP include files. Use at your own risk, they are not likely to work.
-
