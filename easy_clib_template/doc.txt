@@ -1,0 +1,67 @@
+
+Check 'template/src/main.asm' for barest example of usage.
+This include file will automatically include 'ez80.inc', 'ti84pceg.inc', and 'tiformat.inc'.
+'libs.inc' is used internally by 'macros.inc'
+
+=========================================================
+c_call function, args
+---------------------------------------------------------
+Call a libload function, adding the function to the program header if it hasn't already been added.
+Also adds the library to the header if it is not already added.
+args can be any number of arguments, to be passed to the function on the stack.
+NOTE: This does not check number of arguments if it is less than the required number of arguments.
+      Then the omitted arguments will just be taken from the stack.
+      Useful for functions that require the same last argument(s).
+
+=========================================================
+dataload var_name,data_str
+---------------------------------------------------------
+Stores data_str into var_name. Useful for inline data strings.
+
+=========================================================
+ld_iy val
+---------------------------------------------------------
+Same as ``ld iy,val`` but will make the following ``os_call`` load IY with ``ti.flags``.
+
+=========================================================
+os_call function
+---------------------------------------------------------
+if iy has been modified or this is the first os_call of the program, this will load IY with ``ti.flags`` before calling the function.
+
+=========================================================
+store_data data,register
+---------------------------------------------------------
+load register with data, defining it in the program's data section. Useful for loading inline data.
+Default register is HL.
+
+=========================================================
+vardef_datasection var_name,var_len
+---------------------------------------------------------
+Defines var_name as the next var_size bytes in the file data section
+Default var_len is 3
+
+=========================================================
+vardef_inline var_name,var_size
+---------------------------------------------------------
+Defines var_name as the previous var_size bytes.
+Default var_size is 3.
+ex.
+	ld hl,0
+	vardef_inline loop_counter
+	inc hl
+	ld (loop_counter),hl
+
+=========================================================
+vardef_standalone var_name,var_len
+---------------------------------------------------------
+Defines var_name as the following var_size bytes in the program
+Default var_len is 3
+
+=========================================================
+varstore var_name, register
+---------------------------------------------------------
+Stores the value of register into var_name. If var_name is a static variable (aka a data set) this will instead perform a vardef_datasection
+Default register is HL
+
+
+
